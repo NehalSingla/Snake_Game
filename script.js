@@ -50,6 +50,110 @@ function Obstacles() {
 	}
 }
 
+function Snake() {
+
+	this.x=20;
+	this.y=20;
+	this.xSpeed = 20;
+	this.ySpeed = 0;
+	this.tail = [];
+	this.total = 0;
+	this.check = 0;
+
+	this.draw = function() {
+		ctx.fillStyle = 'white'
+
+		for(var i=0;i<this.tail.length;i++)
+		{
+			ctx.fillRect(this.tail[i].x,this.tail[i].y,20,20);
+		}
+		 ctx.fillRect(this.x,this.y,20,20);
+	}
+	this.update = function() {
+		//console.log(this.tail);
+		for(var i=0;i<this.tail.length-1;i++)
+		{
+			this.tail[i] = this.tail[i+1];
+		}
+		console.log(this.tail)
+		this.tail[this.total-1]={x:this.x,y:this.y};
+		this.x += this.xSpeed;
+		this.y += this.ySpeed; 
+
+		if(this.x > canvas.width)
+		  this.x = 0;	
+		if(this.y > canvas.height)
+		  this.y = 0;
+		if(this.x<0)
+			this.x = canvas.width;
+		if(this.y<0)
+			this.y = canvas.height;
+	}
+	this.changeDir = function(direction) {
+		//console.log(direction)
+		switch(direction)
+		{
+			case 'Up':
+			this.xSpeed = 0;
+			this.ySpeed = -20
+			break;
+			case 'Down':
+			this.xSpeed = 0;
+			this.ySpeed = 20;
+			break;
+			case 'Right':
+			this.xSpeed = 20;
+			this.ySpeed = 0;
+			break;
+			case 'Left':
+			this.xSpeed = -20;
+			this.ySpeed = 0;
+		}
+	}
+	this.eatFruit = function(fruit,stone,obstacle) {
+		
+		if(this.x == fruit.x && this.y == fruit.y)
+		{
+			this.total++;
+			this.check = this.check+5;
+			gameScore.innerHTML = "Total Score: " + this.check;
+			gameScore.append();
+			flag1=1;
+			return true;
+		}
+		else if(this.x == stone.x && this.y == stone.y)
+		{
+			this.total++;
+			this.check = this.check+8;
+			gameScore.innerHTML = "Total Score: " + this.check;
+			gameScore.append();
+			flag2=1;
+			return true;
+		}
+		else if(this.x == obstacle.x && this.y == obstacle.y)
+		{
+			this.total++;
+			this.check = this.check+10;
+			gameScore.innerHTML = "Total Score: " + this.check;
+			gameScore.append();
+
+			flag3=1;
+			return true;
+		}
+		else if(this.check>200)
+		{
+			speed -= 20;
+		}
+		else if(this.check>500)
+		{
+			speed -= 50;
+		}
+		else
+		{
+			return false;
+		}
+	}
+}
 
 setup();
 
