@@ -8,6 +8,48 @@ var total=0;
 var fruit,stone,obstacle,snake,interval,pause=true;
 var flag1,flag2,flag3,speed=100;
 
+function Fruit() {
+	
+	this.x;
+	this.y;
+	this.pickLocation = function() {
+		this.x = (Math.floor(Math.random()*row-1)+1)*20;
+		this.y = (Math.floor(Math.random()*row-1)+1)*20;
+	}
+	this.draw = function() {
+		ctx.fillStyle = 'red'
+		ctx.fillRect(this.x,this.y,20,20);
+	}
+}
+
+function Stones() {
+	
+	this.x;
+	this.y;
+	this.pickLocation = function() {
+		this.x = (Math.floor(Math.random()*row-1)+1)*20;
+		this.y = (Math.floor(Math.random()*row-1)+1)*20;
+	}
+	this.draw = function() {
+		ctx.fillStyle = 'green'
+		ctx.fillRect(this.x,this.y,20,20);
+	}
+}
+
+function Obstacles() {
+	
+	this.x;
+	this.y;
+	this.pickLocation = function() {
+		this.x = (Math.floor(Math.random()*row-1)+1)*20;
+		this.y = (Math.floor(Math.random()*row-1)+1)*20;
+	}
+	this.draw = function() {
+		ctx.fillStyle = 'purple'
+		ctx.fillRect(this.x,this.y,20,20);
+	}
+}
+
 
 setup();
 
